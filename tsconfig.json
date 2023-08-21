@@ -1,0 +1,12 @@
+{
+  "files": ["build.ts", "deploy.ts"],
+  "compilerOptions": {
+    "target": "es2020",
+    "outDir": "./dist",
+    "rootDir": ".",
+    "strict": true,
+    "noImplicitAny": true,
+    "module": "es2020",
+    "moduleResolution": "node"
+  }
+}

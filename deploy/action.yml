@@ -1,0 +1,21 @@
+name: "Rig Build"
+description: "Builds a new Rig build given a Docker image"
+inputs:
+  clientID:
+    description: "Client ID of a service account in the same project as the capsule"
+    required: true
+  clientSecret:
+    description: "Secret of a service account in the same project as the capsule"
+    required: true
+  url:
+    description: "URL to your rig cluster"
+    required: true
+  capsuleID:
+    description: "ID of the Rig capsule to deploy."
+    required: true
+  buildID:
+    description: "ID of the rig build"
+    required: true
+runs:
+  using: "node20"
+  main: "dist/index.js"
