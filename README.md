@@ -9,7 +9,7 @@ The Rig build is a thin wrapper over a Docker image. Thus often your build/deplo
 
 ### Usage
 
-See [action.yml](https://github.com/rigdev/actions/blob/main/deploy/action.yml).
+See [action.yml](https://github.com/rigdev/actions/blob/main/build/action.yml).
 
 ```yaml
 - uses: rigdev/actions/build@v2
@@ -40,6 +40,8 @@ See [action.yml](https://github.com/rigdev/actions/blob/main/deploy/action.yml).
 The Deploy action would often be used after the Build action and use the `build` output from it.
 
 ### Usage
+
+See [action.yml](https://github.com/rigdev/actions/blob/main/deploy/action.yml).
 
 ```yaml
 - uses: rigdev/actions/deploy@v1
