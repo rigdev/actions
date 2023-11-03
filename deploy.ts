@@ -2,19 +2,19 @@ import { getInput, setFailed } from "@actions/core";
 import { makeClient } from "./lib.js";
 
 interface Inputs {
-  capsuleID: string;
-  buildID: string;
+  capsule: string;
+  build: string;
 }
 
 async function action(inputs: Inputs) {
   const client = await makeClient();
   await client.capsule.deploy({
-    capsuleId: inputs.capsuleID,
+    capsuleId: inputs.capsule,
     changes: [
       {
         field: {
           case: "buildId",
-          value: inputs.buildID,
+          value: inputs.build,
         },
       },
     ],
@@ -23,8 +23,8 @@ async function action(inputs: Inputs) {
 
 try {
   action({
-    capsuleID: getInput("capsuleID"),
-    buildID: getInput("buildID"),
+    capsule: getInput("capsule"),
+    build: getInput("build"),
   });
 } catch (e: any) {
   setFailed(e.message);

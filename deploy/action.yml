@@ -1,19 +1,22 @@
 name: "Rig Build"
 description: "Builds a new Rig build given a Docker image"
 inputs:
+  url:
+    description: "URL to your rig cluster"
+    required: true
+  project:
+    description: "Name of the Rig project to use"
+    required: true
   clientID:
     description: "Client ID of a service account in the same project as the capsule"
     required: true
   clientSecret:
     description: "Secret of a service account in the same project as the capsule"
     required: true
-  url:
-    description: "URL to your rig cluster"
+  capsule:
+    description: "Name of the Rig capsule to deploy."
     required: true
-  capsuleID:
-    description: "ID of the Rig capsule to deploy."
-    required: true
-  buildID:
+  build:
     description: "ID of the rig build"
     required: true
 runs:

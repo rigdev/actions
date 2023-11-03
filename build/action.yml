@@ -1,26 +1,29 @@
 name: "Rig Build"
 description: "Builds a new Rig build given a Docker image"
 inputs:
+  url:
+    description: "URL to your rig cluster"
+    required: true
+  project:
+    description: "Name of the Rig project to use"
+    required: true
   clientID:
     description: "Client ID of a service account in the same project as the capsule"
     required: true
   clientSecret:
     description: "Secret of a service account in the same project as the capsule"
     required: true
-  url:
-    description: "URL to your rig cluster"
+  capsule:
+    description: "Name of the Rig capsule to create a build to"
     required: true
   image:
     description: "Docker image from which to make a Rig build"
     required: true
-  capsuleID:
-    description: "ID of the Rig capsule to deploy."
-    required: true
-  buildID:
-    description: "ID of the rig build. will default to the sha of the git commit if not provided."
+  skipImageCheck:
+    description: "Set to 'true' if you don't want Rig to validate that the docker image exists."
     required: false
 outputs:
-  buildID:
+  build:
     description: "ID of the build created"
 runs:
   using: "node20"

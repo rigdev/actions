@@ -10,7 +10,7 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
-    "@rigdev/sdk": "^0.0.2-dev.26"
+    "@rigdev/sdk": "^0.0.2-dev.27"
   },
   "devDependencies": {
     "@types/node": "^18.16.3",
