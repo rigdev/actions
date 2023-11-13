@@ -31882,12 +31882,26 @@ async function action(inputs) {
         capsuleId: inputs.capsule,
     });
     (0,core.setOutput)("build", response.buildId);
+    if (inputs.deploy) {
+        await client.capsule.deploy({
+            capsuleId: inputs.capsule,
+            changes: [
+                {
+                    field: {
+                        case: "buildId",
+                        value: response.buildId,
+                    },
+                },
+            ],
+        });
+    }
 }
 try {
     action({
         image: (0,core.getInput)("image"),
         capsule: (0,core.getInput)("capsule"),
         skipImageCheck: (0,core.getInput)("skipImageCheck") == "true" ? true : false,
+        deploy: (0,core.getInput)("deploy") == "true" ? true : false,
     });
 }
 catch (e) {

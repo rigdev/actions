@@ -22,6 +22,9 @@ inputs:
   skipImageCheck:
     description: "Set to 'true' if you don't want Rig to validate that the docker image exists."
     required: false
+  deploy:
+    description: "Set to 'true' if you want to deploy the Rig build as well to the capsule"
+    required: false
 outputs:
   build:
     description: "ID of the build created"
