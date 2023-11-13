@@ -44,7 +44,7 @@ The Deploy action would often be used after the Build action and use the `build`
 See [action.yml](https://github.com/rigdev/actions/blob/main/deploy/action.yml).
 
 ```yaml
-- uses: rigdev/actions/deploy@v1
+- uses: rigdev/actions/deploy@v2
   with:
     # An URL accessible from the outside to your Rig cluster. The action, which runs in a
     # Github hosted machine, will communicate with your Rig cluster on this URL.
@@ -74,7 +74,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Build Rig
+      - name: Create build on Rig
         uses: rigdev/actions/build@v2
         id: build_rig
         with:
@@ -128,7 +128,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/DOCKER_IMAGE_NAME:latest
 
-      - name: Build Rig
+      - name: Create build on Rig
         uses: rigdev/actions/build@v2
         id: build_rig
         with:
@@ -140,7 +140,7 @@ jobs:
           capsule: YOUR_CAPSULE
 
       - name: Deploy to capsule
-        uses: rigdev/actions/deploy@update
+        uses: rigdev/actions/deploy@v2
         with:
           url: url-to-rig-cluster
           project: YOUR_PROJECT_NAME
