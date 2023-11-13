@@ -13,12 +13,24 @@ inputs:
   clientSecret:
     description: "Secret of a service account in the same project as the capsule"
     required: true
+  environment:
+    description: "Name of the environment in which to deploy"
+    required: true
   capsule:
     description: "Name of the Rig capsule to deploy."
     required: true
   build:
     description: "ID of the rig build"
     required: true
+  dryRun:
+    description: "If true, does not execute a deploy but returns the changes that would be made"
+    required: false
+  force:
+    description: "If true will force-abort the current rollout if it hasn't succeded yet"
+    required: false
+outputs:
+  rolloutConfig:
+    description: "The configuration of the capsule rollout. Returned as a {resource-name: resource-config} map."
 runs:
   using: "node20"
   main: "dist/index.js"

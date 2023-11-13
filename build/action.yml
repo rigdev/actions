@@ -22,9 +22,23 @@ inputs:
   skipImageCheck:
     description: "Set to 'true' if you don't want Rig to validate that the docker image exists."
     required: false
+  deploy:
+    description: "Set to 'true' if you want to deploy the Rig build as well to the capsule"
+    required: false
+  environment:
+    description: "The environment in which to deploy if you want to deploy the Rig build to the capsule. Required if and only if deploy=true"
+    required: false
+  dryRun:
+    description: "Only used if 'deploy' is true. If true, does not execute a deploy but returns the changes that would be made"
+    required: false
+  force:
+    description: "Only used if 'deploy' is true. If true will force-abort the current rollout if it hasn't succeded yet"
+    required: false
 outputs:
   build:
     description: "ID of the build created"
+  rolloutConfig:
+    description: "Only set if 'deploy' is true. The configuration of the capsule rollout. Returned as a {resource-name: resource-config} map."
 runs:
   using: "node20"
   main: "dist/index.js"

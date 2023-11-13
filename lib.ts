@@ -1,5 +1,6 @@
 import { Client } from "@rigdev/sdk/lib/index.js";
 import { getInput } from "@actions/core";
+import {load} from "js-yaml";
 
 export interface LoginInput {
   clientID: string;
@@ -24,4 +25,17 @@ export async function makeClient(): Promise<Client> {
     },
   });
   return client;
+}
+
+export function parseDeployOutput(config: {[key: string]: string}): {[key: string]: any} {
+  let output: {[key: string]: any} = {};
+  for (let k in config) {
+    let obj = load(config[k]);
+    output[k] = obj;
+   }
+  return output;
+}
+
+export function getBool(name: string): boolean {
+   return getInput(name) === "true";
 }

@@ -12,7 +12,7 @@ The Rig build is a thin wrapper over a Docker image. Thus often your build/deplo
 See [action.yml](https://github.com/rigdev/actions/blob/main/build/action.yml).
 
 ```yaml
-- uses: rigdev/actions/build@v2
+- uses: rigdev/actions/build@v3
   with:
     # An URL accessible from the outside to your Rig cluster. The action, which runs in a
     # Github hosted machine, will communicate with your Rig cluster on this URL.
@@ -33,7 +33,28 @@ See [action.yml](https://github.com/rigdev/actions/blob/main/build/action.yml).
 
     # The name of the capsule which you want to deploy to.
     capsule: ""
+
+    # Set to 'true' if you don't want Rig to validate that the docker image exists.
+    skipImageCheck: ""
+
+    # Set to 'true' if you want to deploy the Rig build as well to the capsule
+    deploy: ""
+
+    # Required if 'deploy' is true. Sets the environment in which the build will be deployed
+    environment: ""
+
+    # Only used if 'deploy' is true. If true, does not execute a deploy but returns the changes that would be made
+    dryRun: ""
+
+    # Only used if 'deploy' is true. If true will force-abort the current rollout if it hasn't succeded yet
+    force:
 ```
+
+### Outputs:
+| Name          | Type   | Description                                            |
+|---------------|--------|--------------------------------------------------------|
+| build         | string | The ID of the build created                            |
+| rolloutConfig | JSON   | If 'deploy' is true, the Configuration of the rollout. |
 
 ## Deploy
 
@@ -44,7 +65,7 @@ The Deploy action would often be used after the Build action and use the `build`
 See [action.yml](https://github.com/rigdev/actions/blob/main/deploy/action.yml).
 
 ```yaml
-- uses: rigdev/actions/deploy@v2
+- uses: rigdev/actions/deploy@v3
   with:
     # An URL accessible from the outside to your Rig cluster. The action, which runs in a
     # Github hosted machine, will communicate with your Rig cluster on this URL.
@@ -65,7 +86,18 @@ See [action.yml](https://github.com/rigdev/actions/blob/main/deploy/action.yml).
 
     # The ID of the Rig build which you wish to deploy to your capsule
     build: ""
+
+    # If true, does not execute a deploy but returns the changes that would be made
+    dryRun: ""
+
+    # If true will force-abort the current rollout if it hasn't succeded yet
+    force: ""
 ```
+
+### Outputs
+| Name          | Type   | Description                                            |
+|---------------|--------|--------------------------------------------------------|
+| rolloutConfig | JSON   | If 'deploy' is true, the Configuration of the rollout. |
 
 ## Example
 
@@ -75,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create build on Rig
-        uses: rigdev/actions/build@v2
+        uses: rigdev/actions/build@v3
         id: build_rig
         with:
           url: url-to-rig-cluster
@@ -85,10 +117,11 @@ jobs:
           image: DOCKER_IMAGE
           capsule: YOUR_CAPSULE
       - name: Deploy to capsule
-        uses: rigdev/actions/deploy@v2
+        uses: rigdev/actions/deploy@v3
         with:
           url: url-to-rig-cluster
           project: YOUR_PROJECT_NAME
+          environement: YOUR_ENVIRONMENT
           clientID: YOUR_ID
           clientSecret: YOUR_SECRET
           capsule: YOUR_CAPSULE
@@ -129,7 +162,7 @@ jobs:
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/DOCKER_IMAGE_NAME:latest
 
       - name: Create build on Rig
-        uses: rigdev/actions/build@v2
+        uses: rigdev/actions/build@v3
         id: build_rig
         with:
           url: url-to-rig-cluster
@@ -140,10 +173,11 @@ jobs:
           capsule: YOUR_CAPSULE
 
       - name: Deploy to capsule
-        uses: rigdev/actions/deploy@v2
+        uses: rigdev/actions/deploy@v3
         with:
           url: url-to-rig-cluster
           project: YOUR_PROJECT_NAME
+          environement: YOUR_ENVIRONMENT
           clientID: YOUR_ID
           clientSecret: ${{ secrets.RIG_PROJECT_CLIENT_SECRET }}
           capsule: YOUR_CAPSULE
