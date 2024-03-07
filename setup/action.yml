@@ -1,0 +1,5 @@
+name: "Rig Setup"
+description: "Ensures rig cli is avaiable and configured"
+runs:
+  using: node20
+  main: ../test.js
